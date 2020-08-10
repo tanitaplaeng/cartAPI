@@ -17,8 +17,8 @@ const cart = [
 ];
 
 cartItems.get('/', (req, res) => { 
-    res.send(cart);
-})
+    res.send('You hit the cart API (~￣▽￣)~ Go to /cart-items to view items! (✿ ♥‿♥)');
+});
 
 // getting all cart items
 cartItems.get('/cart-items', (req, res) => {
@@ -41,7 +41,7 @@ cartItems.get('/cart-items/:id', (req, res) => {
     if (cartItem) { 
         res.send(cartItem);
     } else { 
-        res.status(404).send('Cart item not found!');
+        res.status(404).send(`Cart item ${req.params.id} not found! ಠ╭╮ಠ`);
     }
     // res.send(cartItem);
 });
@@ -50,18 +50,31 @@ cartItems.get('/cart-items/:id', (req, res) => {
 cartItems.post('/cart-items', (req, res) => { 
     const lastIndex = cart.length - 1;
     const newID = cart[lastIndex].id + 1;
-    const newItem = { id: newID, product: 'Tequila', price: 8, quantity: 4 };
-    cart.push(newItem);
-    console.log(cart);
-    res.send('Item added to cart!');
+    const newCartItem = { 
+        id: newID, 
+        // product: 'Tequila', 
+        // price: 8, 
+        // quantity: 4 
+        product: req.body.product,
+        price: req.body.price,
+        quantity: req.body.quantity
+    };
+    cart.push(newCartItem);
+    res.status(201).send(`${req.body.product} added to cart! (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ `);
+    // res.send('Item added to cart!');
 });
 
 // update cart item in array with the given ID
 cartItems.put('/cart-items/:id', (req, res) => {
     const cartItem = cart.find(c => c.id == req.params.id);
     const itemIndex = cart.indexOf(cartItem);
-    cart[itemIndex] = { id: cartItem.id, product: req.body.product, price: req.body.price, quantity: req.body.quantity };
-    res.send('Updated cart item!');
+    cart[itemIndex] = { 
+        id: cartItem.id, 
+        product: req.body.product, 
+        price: req.body.price, 
+        quantity: req.body.quantity 
+    };
+    res.send(`Updated ${req.body.product}! (▰˘◡˘▰)`);
 })
 
 // deleting cart item from array
@@ -70,7 +83,7 @@ cartItems.delete('/cart-items/:id', (req, res) => {
     const cartIndex = cart.indexOf(cartItem);
     console.log(cartIndex);
     cart.splice(cartIndex, 1);
-    res.send('Deleted item from cart!');
+    res.send(`Deleted ${req.body.product} from cart! (◡︿◡✿)`);
 });
 
 module.exports = cartItems;
