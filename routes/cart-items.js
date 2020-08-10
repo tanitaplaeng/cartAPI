@@ -24,7 +24,7 @@ cartItems.get('/', (req, res) => {
 cartItems.get('/cart-items', (req, res) => {
     let cartItems = cart;
     if (req.query.maxPrice) {
-        cartItems = cartItems.filter(c => c.price >= 2);
+        cartItems = cartItems.filter(c => c.price >= req.query.maxPrice);
     }
     if (req.query.prefix) { 
         cartItems = cartItems.filter(c => c.product.startsWith(req.query.prefix))
@@ -75,7 +75,7 @@ cartItems.put('/cart-items/:id', (req, res) => {
         quantity: req.body.quantity 
     };
     res.send(`Updated ${req.body.product}! (▰˘◡˘▰)`);
-})
+});
 
 // deleting cart item from array
 cartItems.delete('/cart-items/:id', (req, res) => { 
