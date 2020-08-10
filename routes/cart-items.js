@@ -27,7 +27,7 @@ cartItems.get('/cart-items', (req, res) => {
         cartItems = cartItems.filter(c => c.price >= req.query.maxPrice);
     }
     if (req.query.prefix) { 
-        cartItems = cartItems.filter(c => c.product.startsWith(req.query.prefix))
+        cartItems = cartItems.filter(c => c.product.startsWith(req.query.prefix));
     }
     if (req.query.pageSize) { 
         cartItems = cartItems.slice(0, req.query.pageSize);
@@ -41,9 +41,8 @@ cartItems.get('/cart-items/:id', (req, res) => {
     if (cartItem) { 
         res.send(cartItem);
     } else { 
-        res.status(404).send(`Cart item ${req.params.id} not found! ಠ╭╮ಠ`);
+        res.sendStatus(404).send(`Cart item ${req.params.id} not found! ಠ╭╮ಠ`);
     }
-    // res.send(cartItem);
 });
 
 // adding cart item to array and generate unique ID
@@ -61,7 +60,6 @@ cartItems.post('/cart-items', (req, res) => {
     };
     cart.push(newCartItem);
     res.status(201).send(`${req.body.product} added to cart! (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ `);
-    // res.send('Item added to cart!');
 });
 
 // update cart item in array with the given ID
