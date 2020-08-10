@@ -9,12 +9,16 @@ const cart = [
     {id: 4, product: 'Kombucha', price: 5, quantity: 1},
     {id: 5, product: 'Salmon', price: 6, quantity: 3},
     {id: 6, product: 'Coffee', price: 3, quantity: 1},
-    {id: 7, product: 'Salmon', price: 6, quantity: 3},
+    {id: 7, product: 'Cous Cous', price: 4, quantity: 3},
     {id: 8, product: 'Chicken Nuggies', price: 5, quantity: 7},
     {id: 9, product: 'Soup', price: 2, quantity: 3},
     {id: 10, product: 'Cilantro', price: 1, quantity: 8},
     {id: 11, product: 'Cherries', price: 3, quantity: 4},
 ];
+
+cartItems.get('/', (req, res) => { 
+    res.send(cart);
+})
 
 // getting all cart items
 cartItems.get('/cart-items', (req, res) => {
