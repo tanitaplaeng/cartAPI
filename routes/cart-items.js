@@ -20,7 +20,7 @@ cartItems.get('/', (req, res) => {
     res.send('You hit the cart API (~￣▽￣)~ Go to /cart-items to view items! (✿ ♥‿♥)');
 });
 
-// getting all cart items
+// getting all cart items with query string parameters
 cartItems.get('/cart-items', (req, res) => {
     let cartItems = cart;
     if (req.query.maxPrice) {
